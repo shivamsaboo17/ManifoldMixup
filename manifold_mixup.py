@@ -65,12 +65,13 @@ class ManifoldMixupModel(nn.Module):
         return out, self.lam
 
     def hook_modify(self, module, input, output):
-        if not self.hooked:
+        if not self._hooked:
             output = (1 - self.lam) * self.intermediate_other + self.lam * output
             self._update_hooked(True)
+            return output
 
     def hook_fetch(self, module, input, output):
-        if not self.hooked:
+        if not self._hooked:
             self.intermediate_other = output
             self._update_hooked(True)
         else:
@@ -80,7 +81,7 @@ class ManifoldMixupModel(nn.Module):
                 self._warning_raised = True
     
     def _update_hooked(self, flag):
-        self.hooked = flag
+        self._hooked = flag
 
 
 class ManifoldMixupLoss(nn.Module):
