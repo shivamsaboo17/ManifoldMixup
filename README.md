@@ -77,3 +77,5 @@ class MyNewAttack(BlackBoxAdversarialAttack):
     Logic for attack
     """
 ```
+#### Fastai implementation by @nestordemeure
+https://github.com/nestordemeure/ManifoldMixup
